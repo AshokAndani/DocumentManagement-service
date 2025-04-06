@@ -16,17 +16,8 @@ A .NET-based API for uploading, storing, indexing, and searching documents using
 
 ## 🛠️ Tech Stack
 
-- ASP.NET Core
+- ASP.NET Core (.Net 9)
 - Entity Framework Core
 - SQL Server (with Full-Text Search)
 - JWT Authentication
 - Swagger / Swashbuckle
-
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- .NET 6 or higher
-- SQL Server (Developer Edition recommended with Full-Text Search enabled)
