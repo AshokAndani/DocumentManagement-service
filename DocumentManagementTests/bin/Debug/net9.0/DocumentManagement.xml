@@ -1,0 +1,323 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DocumentManagement</name>
+    </assembly>
+    <members>
+        <member name="T:DocumentManagement.Controllers.AuthController">
+            <summary>
+            Provides Authentication and User Management routes.
+            </summary>
+            <param name="userService"></param>
+            <param name="passwordHasher"></param>
+            <param name="jwtTokenService"></param>
+        </member>
+        <member name="M:DocumentManagement.Controllers.AuthController.#ctor(DocumentManagement.Services.IUserService,DocumentManagement.Utility.IPasswordHasher,DocumentManagement.Services.IJwtTokenService)">
+            <summary>
+            Provides Authentication and User Management routes.
+            </summary>
+            <param name="userService"></param>
+            <param name="passwordHasher"></param>
+            <param name="jwtTokenService"></param>
+        </member>
+        <member name="M:DocumentManagement.Controllers.AuthController.DummyRegister(DocumentManagement.Models.RegisterModel)">
+            <summary>
+            OBSOLETE: Registers new user along with the role.
+            </summary>
+            <param name="register"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DocumentManagement.Controllers.AuthController.Login(DocumentManagement.Models.LoginModel)">
+            <summary>
+            Authenticates the user based on passed in credentials.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DocumentManagement.Controllers.DocumentController">
+            <summary>
+            Provides routes for managing Documents.
+            </summary>
+            <param name="documentService"></param>
+        </member>
+        <member name="M:DocumentManagement.Controllers.DocumentController.#ctor(DocumentManagement.Services.IDocumentService)">
+            <summary>
+            Provides routes for managing Documents.
+            </summary>
+            <param name="documentService"></param>
+        </member>
+        <member name="M:DocumentManagement.Controllers.DocumentController.UploadDocument(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            upload the document.
+            </summary>
+            <param name="file">PDF or Docx.</param>
+            <returns>Returns the Document ID.</returns>
+        </member>
+        <member name="M:DocumentManagement.Controllers.DocumentController.DownloadDocument(System.Int32)">
+            <summary>
+            Gets the uploaded document for current user.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DocumentManagement.Controllers.DocumentController.SearchDocuments(System.String)">
+            <summary>
+            provides the list of file details based on the search query.
+            </summary>
+            <param name="query"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DocumentManagement.Controllers.TestController">
+            <summary>
+            Sample controller to demonstrate role-based authorization.
+            </summary>
+        </member>
+        <member name="T:DocumentManagement.Entities.Document">
+            <summary>
+            Db Entity containing the all the information regarding a document.
+            </summary>
+        </member>
+        <member name="T:DocumentManagement.Entities.Role">
+            <summary>
+            Db Entity referring to user role.
+            </summary>
+        </member>
+        <member name="T:DocumentManagement.Entities.User">
+            <summary>
+            Db Entity referring to a physical application user.
+            </summary>
+        </member>
+        <member name="T:DocumentManagement.EntityConfiguration.DocumentConfiguration">
+            <summary>
+            Configuration regarding the Document Entity for EF.
+            </summary>
+        </member>
+        <member name="T:DocumentManagement.EntityConfiguration.RoleConfiguration">
+            <summary>
+            Configuration regarding the Role Entity for EF.
+            </summary>
+        </member>
+        <member name="T:DocumentManagement.EntityConfiguration.UserConfiguration">
+            <summary>
+            Configuration regarding the User Entity for EF.
+            </summary>
+        </member>
+        <member name="T:DocumentManagement.Models.LoginModel">
+            <summary>
+            Request Model for Login.
+            </summary>
+        </member>
+        <member name="T:DocumentManagement.Models.LoginResponse">
+            <summary>
+            Represents the response model for login.
+            </summary>
+        </member>
+        <member name="P:DocumentManagement.Models.LoginResponse.Token">
+            <summary>
+            Gets or sets the Token.
+            </summary>
+        </member>
+        <member name="T:DocumentManagement.Models.RegisterModel">
+            <summary>
+            Request Model for Register Model.
+            </summary>
+        </member>
+        <member name="T:DocumentManagement.Models.UploadDocumentResponse">
+            <summary>
+            Represents the response model for document upload.
+            </summary>
+        </member>
+        <member name="P:DocumentManagement.Models.UploadDocumentResponse.DocId">
+            <summary>
+            Gets or sets the Document ID.
+            </summary>
+        </member>
+        <member name="P:DocumentManagement.Models.UploadDocumentResponse.Message">
+            <summary>
+            Gets or sets the message.
+            </summary>
+        </member>
+        <member name="T:DocumentManagement.Repository.IDocumentRepository">
+            <summary>
+            provides methods to work on Documents in DB
+            </summary>
+        </member>
+        <member name="T:DocumentManagement.Repository.DocumentRepository">
+            <summary>
+            provides methods to work on Documents in DB
+            </summary>
+            <param name="appDbContext"></param>
+        </member>
+        <member name="M:DocumentManagement.Repository.DocumentRepository.#ctor(DocumentManagement.Persistance.AppDbContext)">
+            <summary>
+            provides methods to work on Documents in DB
+            </summary>
+            <param name="appDbContext"></param>
+        </member>
+        <member name="T:DocumentManagement.Repository.IUserRepository">
+            <summary>
+            provides methods to work on User in DB
+            </summary>
+        </member>
+        <member name="M:DocumentManagement.Repository.IUserRepository.GetUserByName(System.String)">
+            <summary>
+            returns user by username
+            </summary>
+            <param name="userName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DocumentManagement.Repository.IUserRepository.GetUserById(System.Int32)">
+            <summary>
+            returns user by Id
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DocumentManagement.Repository.IUserRepository.GetRoleByName(System.String)">
+            <summary>
+            returns role by name
+            </summary>
+            <param name="roleName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DocumentManagement.Repository.IUserRepository.AddUser(DocumentManagement.Entities.User)">
+            <summary>
+            adds user to DB
+            </summary>
+            <param name="user"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DocumentManagement.Repository.UserRepository">
+            <summary>
+            provides methods to work on User in DB
+            </summary>
+            <param name="DbContext"></param>
+        </member>
+        <member name="M:DocumentManagement.Repository.UserRepository.#ctor(DocumentManagement.Persistance.AppDbContext)">
+            <summary>
+            provides methods to work on User in DB
+            </summary>
+            <param name="DbContext"></param>
+        </member>
+        <member name="M:DocumentManagement.Repository.UserRepository.GetUserByName(System.String)">
+            <summary>
+            returns user by username
+            </summary>
+            <param name="userName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DocumentManagement.Repository.UserRepository.GetUserById(System.Int32)">
+            <summary>
+            returns user by Id
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DocumentManagement.Repository.UserRepository.AddUser(DocumentManagement.Entities.User)">
+            <summary>
+            returns role by name
+            </summary>
+            <param name="user"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DocumentManagement.Repository.UserRepository.GetRoleByName(System.String)">
+            <summary>
+            returns role by name
+            </summary>
+            <param name="roleName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DocumentManagement.Services.IDocumentService">
+            <summary>
+            Provides methods for Additional processing for Documents
+            </summary>
+        </member>
+        <member name="T:DocumentManagement.Services.DocumentService">
+            <summary>
+            Provides methods for Additional processing for Documents
+            </summary>
+            <param name="documentRepository"></param>
+            <param name="documentProcessor"></param>
+        </member>
+        <member name="M:DocumentManagement.Services.DocumentService.#ctor(DocumentManagement.Repository.IDocumentRepository,DocumentManagement.Utility.DocumentProcessor)">
+            <summary>
+            Provides methods for Additional processing for Documents
+            </summary>
+            <param name="documentRepository"></param>
+            <param name="documentProcessor"></param>
+        </member>
+        <member name="T:DocumentManagement.Services.IJwtTokenService">
+            <summary>
+            Provides JWT token related functionalities.
+            </summary>
+        </member>
+        <member name="M:DocumentManagement.Services.IJwtTokenService.GenerateToken(System.String,System.String,System.Int32)">
+            <summary>
+            Generates the JWT token.
+            </summary>
+            <param name="username"></param>
+            <param name="role"></param>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DocumentManagement.Services.JwtTokenService">
+            <summary>
+            Provides JWT token related functionalities.
+            </summary>
+            <param name="Configuration"></param>
+        </member>
+        <member name="M:DocumentManagement.Services.JwtTokenService.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Provides JWT token related functionalities.
+            </summary>
+            <param name="Configuration"></param>
+        </member>
+        <member name="M:DocumentManagement.Services.JwtTokenService.GenerateToken(System.String,System.String,System.Int32)">
+            <summary>
+            Generates the JWT token.
+            </summary>
+            <param name="username"></param>
+            <param name="role"></param>
+            <param name="userId"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="T:DocumentManagement.Services.IUserService">
+            <summary>
+            Provides methods for Additional processing for Users
+            </summary>
+        </member>
+        <member name="T:DocumentManagement.Services.UserService">
+            <summary>
+            Provides methods for Additional processing for Users
+            </summary>
+            <param name="userRepository"></param>
+        </member>
+        <member name="M:DocumentManagement.Services.UserService.#ctor(DocumentManagement.Repository.IUserRepository)">
+            <summary>
+            Provides methods for Additional processing for Users
+            </summary>
+            <param name="userRepository"></param>
+        </member>
+        <member name="T:DocumentManagement.Utility.DocumentProcessor">
+            <summary>
+            Provides Helper methods for document text extraction.
+            </summary>
+        </member>
+        <member name="T:DocumentManagement.Utility.FileUploadOperationFilter">
+            <summary>
+            Filter that allows uploading documents
+            </summary>
+        </member>
+        <member name="T:DocumentManagement.Utility.IPasswordHasher">
+            <summary>
+            provides helper methods for password hashing
+            </summary>
+        </member>
+        <member name="T:DocumentManagement.Utility.PasswordHasher">
+            <summary>
+            provides helper methods for password hashing
+            </summary>
+        </member>
+    </members>
+</doc>
