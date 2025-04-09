@@ -23,6 +23,8 @@ A .NET-based API for uploading, storing, indexing, and searching documents using
 - Swagger / Swashbuckle  
 
 ---
+## 🛠️ XUnit Tests
+![App Preview](./Test-Cases.png)
 
 ## 🚀 Deployment Steps
 
