@@ -1,4 +1,5 @@
-﻿using DocumentManagement.Services;
+﻿using DocumentManagement.Models;
+using DocumentManagement.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -33,7 +34,7 @@ namespace DocumentManagement.Controllers
 
             var docId = await documentService.SaveDocument(file, int.Parse(userId));
 
-            return Ok(new { Message = "File uploaded successfully!", docId });
+            return Ok(new UploadDocumentResponse{ Message = "File uploaded successfully!", DocId = docId });
         }
 
         /// <summary>

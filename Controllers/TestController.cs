@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DocumentManagement.Controllers
 {
+    /// <summary>
+    /// Sample controller to demonstrate role-based authorization.
+    /// </summary>
     [ApiController]
     [Route("api/test")]
     public class TestController : ControllerBase

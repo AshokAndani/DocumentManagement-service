@@ -15,13 +15,13 @@ namespace DocumentManagement.Controllers
     /// </summary>
     /// <param name="userService"></param>
     /// <param name="passwordHasher"></param>
-    /// <param name="Configuration"></param>
+    /// <param name="jwtTokenService"></param>
     [Route("api/auth")]
     [ApiController]
     public class AuthController(
         IUserService userService,
         IPasswordHasher passwordHasher,
-        IConfiguration Configuration)
+        IJwtTokenService jwtTokenService)
         : ControllerBase
     {
 
@@ -73,36 +73,8 @@ namespace DocumentManagement.Controllers
             if (!isPasswordValid)
                 return Unauthorized();
 
-            var token = GenerateToken(user.Username, user.Role!.Name!, user.Id);
-            return Ok(new {Token= token});
-        }
-
-        /// <summary>
-        /// Generates the JWT token.
-        /// </summary>
-        /// <param name="username"></param>
-        /// <param name="role"></param>
-        /// <param name="userId"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException"></exception>
-        private string GenerateToken(string username, string role, int userId)
-        {
-            string secretKey = Configuration["JwtOptions:SecretKey"] ?? throw new ArgumentNullException("cannot be null");
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.UTF8.GetBytes(secretKey);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new[]
-                {
-                    new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
-                    new Claim(ClaimTypes.Name, username),
-                    new Claim(ClaimTypes.Role, role)
-                }),
-                Expires = DateTime.UtcNow.AddHours(1),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
+            var token = jwtTokenService.GenerateToken(user.Username, user.Role!.Name!, user.Id);
+            return Ok(new LoginResponse { Token = token});
         }
     }
 }
